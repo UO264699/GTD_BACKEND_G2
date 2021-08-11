@@ -53,6 +53,9 @@ public class Task {
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	@ManyToOne
+	private TaskGroup taskGroup;
 
 	public Long getId() {
 		return id;
