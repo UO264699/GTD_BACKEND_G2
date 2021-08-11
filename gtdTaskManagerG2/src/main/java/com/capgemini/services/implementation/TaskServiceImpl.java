@@ -1,5 +1,6 @@
 package com.capgemini.services.implementation;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -77,6 +78,14 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void deleteAll() {
 		taskRepository.deleteAll();
+	}
+
+	public void finishedTask(Task task) {
+		
+		task.setFinished(LocalDate.now());
+		
+		taskRepository.save(task);
+		
 	}
 
 }
