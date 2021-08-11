@@ -19,13 +19,13 @@ import com.capgemini.model.Category;
 import com.capgemini.services.CategoryService;
 
 @RestController
-@RequestMapping
+@RequestMapping(path="/categories")
 public class CategoryController {
 
 	@Autowired
 	CategoryService cs;
 	
-	@GetMapping("/")
+	@GetMapping(path="/all")
 	public ResponseEntity<?> findAll(){
 		List<Category> lista=cs.findAll();
 		if(lista.isEmpty())
@@ -33,7 +33,7 @@ public class CategoryController {
 		else return ResponseEntity.ok(lista);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(path="/{id}")
 	public ResponseEntity<?> findById(@PathVariable Long id){
 		Optional<Category> cg=cs.findById(id);
 		if(cg.isPresent())
@@ -41,13 +41,13 @@ public class CategoryController {
 		else return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping("/")
+	@PostMapping(path="/add")
 	public ResponseEntity<?> insertar(@RequestBody Category category){
 		cs.save(category);
 		return ResponseEntity.status(HttpStatus.CREATED).body(category);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping(path="/modify/{id}")
 	public ResponseEntity<?> modificar(@PathVariable Long id, @RequestBody Category category){
 		if(cs.findById(id).isPresent()) {
 			category.setId(id);
@@ -55,7 +55,7 @@ public class CategoryController {
 		}else return ResponseEntity.notFound().build();
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping(path="/delte/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id){
 		if(cs.findById(id).isPresent()) {
 			Category c=cs.findById(id).get();
