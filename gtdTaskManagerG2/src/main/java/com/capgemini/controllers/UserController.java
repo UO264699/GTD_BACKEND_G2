@@ -2,18 +2,19 @@ package com.capgemini.controllers;
 
 import com.capgemini.model.User;
 import com.capgemini.services.UserService;
+import com.capgemini.services.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping(path = "/users")
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<User> getAllUsers() {

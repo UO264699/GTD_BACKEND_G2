@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.capgemini.model.TaskGroup;
 import com.capgemini.repositories.TaskGroupRepository;
 import com.capgemini.services.TaskGroupService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TaskGroupServiceImpl implements TaskGroupService {
 
 	@Autowired
@@ -62,6 +64,6 @@ public class TaskGroupServiceImpl implements TaskGroupService {
 		taskGroupRepository.deleteAll();
 	}
 	
-	
+
 
 }
