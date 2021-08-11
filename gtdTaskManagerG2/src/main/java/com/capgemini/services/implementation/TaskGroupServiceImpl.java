@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.capgemini.model.TaskGroup;
 import com.capgemini.repositories.TaskGroupRepository;
+import com.capgemini.services.TaskGroupService;
 
 public class TaskGroupServiceImpl implements TaskGroupService {
 
