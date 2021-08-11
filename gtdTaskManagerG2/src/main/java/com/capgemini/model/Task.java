@@ -116,6 +116,13 @@ public class Task {
 		this.category = category;
 	}
 	
+	public TaskGroup getTaskGroup() {
+		return taskGroup;
+	}
+	
+	public void setTaskGroup(TaskGroup taskGroup) {
+		this.taskGroup = taskGroup;
+	}
 	@Override
 	public String toString() {
 		return "Task [id=" + id + ", comments=" + comments + ", created=" + created + ", finished=" + finished

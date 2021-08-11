@@ -1,6 +1,7 @@
 package com.capgemini.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,6 +35,14 @@ public class TaskGroup {
 	public TaskGroup() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -41,14 +50,6 @@ public class TaskGroup {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getDescription() {
@@ -81,5 +82,14 @@ public class TaskGroup {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+	public void addTask(Task task) {
+		if(tasks == null) {
+			tasks = new ArrayList<>();
+		}
+		
+		tasks.add(task);
+		task.setTaskGroup(this);
 	}
 }
