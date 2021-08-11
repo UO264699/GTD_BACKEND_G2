@@ -18,6 +18,34 @@ public class Invitation {
 	@ManyToOne
 	private TaskGroup taskGroup;
 
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param taskGroup the taskGroup to set
+	 */
+	public void setTaskGroup(TaskGroup taskGroup) {
+		this.taskGroup = taskGroup;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @return the taskGroup
+	 */
+	public TaskGroup getTaskGroup() {
+		return taskGroup;
+	}
+
 	public Invitation() {
 		// TODO Auto-generated constructor stub
 	}
