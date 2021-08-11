@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.capgemini.model.Category;
 import com.capgemini.model.Task;
+import com.capgemini.model.TaskGroup;
 import com.capgemini.model.User;
 
 public interface TaskService {
@@ -20,6 +21,13 @@ public interface TaskService {
 	 * @return optional of task searched by id
 	 */
 	Optional<Task> findById(Long id);
+	
+	/**
+	 * @param taskId
+	 * @param taskGroupId
+	 * @return optional of task searched by Task id and TaskGroup Id
+	 */
+	Optional<Task> findByIdAndTaskGroupId(Long taskId, Long taskGroupId);
 	
 	/**
 	 * @param user
@@ -59,6 +67,20 @@ public interface TaskService {
 	 */
 	List<Task> findByCategoryInboxTasks(Category category);
 
+	
+	/**
+	 * @param taskGroup
+	 * @return list of tasks linked to a TaskGroup
+	 */
+	List<Task> findByTaskGroup(TaskGroup taskGroup);
+	
+	
+	/**
+	 * @param id
+	 * @return list of tasks linked to a TaskGroup Id
+	 */
+	List<Task> findByTaskGroupId(Long id);
+	
 	/**
 	 * @param task
 	 * @return save a task in DB

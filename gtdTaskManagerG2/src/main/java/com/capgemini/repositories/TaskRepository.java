@@ -2,6 +2,7 @@ package com.capgemini.repositories;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -54,4 +55,10 @@ public interface TaskRepository extends JpaRepository<Task, Long>{
 	 * @return list of tasks by TaskGroup Id
 	 */
 	List<Task> findByTaskGroupId(Long id);
+	/**
+	 * @param taskId
+	 * @param taskGroupId
+	 * @return optional of task searched by Task id and TaskGroup Id
+	 */
+	Optional<Task> findByIdAndTaskGroupId(Long taskId, Long taskGroupId);
 }

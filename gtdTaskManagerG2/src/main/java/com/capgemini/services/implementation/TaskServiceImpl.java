@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.model.Category;
 import com.capgemini.model.Task;
+import com.capgemini.model.TaskGroup;
 import com.capgemini.model.User;
 import com.capgemini.repositories.TaskRepository;
 import com.capgemini.services.TaskService;
@@ -28,6 +29,11 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Optional<Task> findById(Long id) {
 		return taskRepository.findById(id);
+	}
+	
+	@Override
+	public Optional<Task> findByIdAndTaskGroupId(Long taskId, Long taskGroupId) {
+		return taskRepository.findByIdAndTaskGroupId(taskId, taskGroupId);
 	}
 	
 	@Override
@@ -58,6 +64,16 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<Task> findByCategoryInboxTasks(Category category) {
 		return taskRepository.findByCategoryAndPlannedIsNullOrderByCreatedAsc(category);
+	}
+	
+	@Override
+	public List<Task> findByTaskGroup(TaskGroup taskGroup) {
+		return taskRepository.findByTaskGroup(taskGroup);
+	}
+
+	@Override
+	public List<Task> findByTaskGroupId(Long id) {
+		return taskRepository.findByTaskGroupId(id);
 	}
 
 	@Override
