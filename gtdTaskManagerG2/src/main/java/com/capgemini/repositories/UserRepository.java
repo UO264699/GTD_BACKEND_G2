@@ -6,4 +6,9 @@ import com.capgemini.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	/**
+	 * @param login
+	 * @return user searched by login
+	 */
+	User findByLogin(String login);
 }
