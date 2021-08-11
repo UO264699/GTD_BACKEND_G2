@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.capgemini.model.Category;
 import com.capgemini.model.Task;
+import com.capgemini.model.TaskGroup;
 import com.capgemini.model.User;
 
 public interface TaskRepository extends JpaRepository<Task, Long>{
@@ -43,4 +44,14 @@ public interface TaskRepository extends JpaRepository<Task, Long>{
 	 * @return list of tasks by category and planned field null and ascending order
 	 */
 	List<Task> findByCategoryAndPlannedIsNullOrderByCreatedAsc(Category category);
+	/**
+	 * @param taskGroup
+	 * @return list of tasks by TaskGroup
+	 */
+	List<Task> findByTaskGroup(TaskGroup taskGroup);
+	/**
+	 * @param id
+	 * @return list of tasks by TaskGroup Id
+	 */
+	List<Task> findByTaskGroupId(Long id);
 }
