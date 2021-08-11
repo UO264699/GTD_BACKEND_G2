@@ -1,4 +1,4 @@
-package com.capgemini.controllers;
+package com.capgemini.services;
 
 import java.util.Date;
 import java.util.List;
