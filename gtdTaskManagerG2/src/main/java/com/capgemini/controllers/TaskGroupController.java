@@ -1,10 +1,12 @@
 package com.capgemini.controllers;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +54,25 @@ public class TaskGroupController {
 		if(taskOptional.isPresent()) {
 			Task taskTemp = taskOptional.get();
 			task.setId(taskTemp.getId());
+			return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	@DeleteMapping("/{id}/tasks{taskId}")
+	public ResponseEntity<?> deteleTask(@PathVariable("id") Long id,
+										@PathVariable("taskId") Long taskId) {
+		taskService.deleteById(taskId);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PutMapping("/{id}/tasks{taskId}")
+	public ResponseEntity<?> finishTask(@PathVariable("id") Long id,
+										@PathVariable("taskId") Long taskId) {
+		Optional<Task> taskOptional = taskService.findByIdAndTaskGroupId(id, taskId);
+		if(taskOptional.isPresent()) {
+			Task task = taskOptional.get();
+			task.setFinished(LocalDate.now());
 			return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
