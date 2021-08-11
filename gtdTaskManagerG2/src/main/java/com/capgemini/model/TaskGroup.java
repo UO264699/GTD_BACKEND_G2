@@ -30,6 +30,9 @@ public class TaskGroup {
 	
 	@ManyToMany
 	private List<User> users;
+	
+	@OneToMany(mappedBy = "taskGroup")
+	private List<Invitation> invitations;
 
 	public TaskGroup() {
 		// TODO Auto-generated constructor stub

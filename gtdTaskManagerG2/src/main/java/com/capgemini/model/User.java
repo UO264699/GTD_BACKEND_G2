@@ -39,6 +39,7 @@ public class User {
 	
 	@Transient
 	private String password2;
+
 	
 	public String getPassword2() {
 		return password2;
@@ -52,9 +53,13 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Task> tasks;
+
 	
 	@ManyToMany
 	private List<TaskGroup> taskGroups;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Invitation> invitations;
 	
 	public Long getId() {
 		return id;
