@@ -1,8 +1,8 @@
 package com.capgemini.controllers;
 
-import com.capgemini.model.Task;
-import com.capgemini.model.TaskGroup;
+import com.capgemini.model.*;
 
+import com.capgemini.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +34,9 @@ public class TaskGroupController {
 	
 	@Autowired
 	private TaskGroupService taskGroupService;
+
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private TaskService taskService;
@@ -134,5 +137,16 @@ public class TaskGroupController {
 			return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/updateStatus/{id}/{idUser}")
+	public String updateStatus(@PathVariable Long id, @PathVariable Long idUser) {
+    	TaskGroup taskGroup = taskGroupService.findById(id).get();
+
+    	User user = userService.findById(idUser).get();
+    	
+    	taskGroup.setAdmin(user);
+
+    	return "Usuario Cambiado";
 	}
 }
