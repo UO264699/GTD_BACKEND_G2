@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,6 +58,19 @@ public class InvitationController {
 		
 		invitationServiceImpl.deleteById(id);
 	}
+
+	/**
+	 * @param <S>
+	 * @param entity
+	 * @return
+	 * @see com.capgemini.services.implementation.InvitationServiceImpl#save(com.capgemini.model.Invitation)
+	 */
+	@PostMapping("/")
+	public <S extends Invitation> S save(@RequestBody  S entity) {
+		return invitationServiceImpl.save(entity);
+	}
+	
+	
 	
 	
 

@@ -26,4 +26,12 @@ public interface InvitationService {
 	 */
 	void deleteById(Long id);
 
+	/**
+	 * @param <S>
+	 * @param entity
+	 * @return
+	 * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
+	 */
+	<S extends Invitation> S save(S entity);
+
 }

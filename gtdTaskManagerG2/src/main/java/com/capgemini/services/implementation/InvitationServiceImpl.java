@@ -43,10 +43,18 @@ public class InvitationServiceImpl implements InvitationService   {
 		invitationRepository.deleteById(id);
 	}
 
-	
+	/**
+	 * @param <S>
+	 * @param entity
+	 * @return
+	 * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
+	 */
+	@Override
+	public <S extends Invitation> S save(S entity) {
+		return invitationRepository.save(entity);
+	}
 
 	
-
 	
 
 }
