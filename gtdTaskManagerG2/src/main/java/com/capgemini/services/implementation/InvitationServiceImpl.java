@@ -9,6 +9,7 @@ import com.capgemini.model.User;
 import com.capgemini.repositories.InvitationRepository;
 import com.capgemini.services.InvitationService;
 
+
 @Service
 public class InvitationServiceImpl implements InvitationService   {
 
@@ -16,7 +17,9 @@ public class InvitationServiceImpl implements InvitationService   {
 	private InvitationRepository invitationRepository;
 
 	/**
-	 * @return
+	 * Find all invitations
+	 * 
+	 * @return list of invitations
 	 * @see org.springframework.data.jpa.repository.JpaRepository#findAll()
 	 */
 	@Override
@@ -25,8 +28,10 @@ public class InvitationServiceImpl implements InvitationService   {
 	}
 
 	/**
+	 * Find invitation by user
+	 * 
 	 * @param user
-	 * @return
+	 * @return list of invitations
 	 * @see com.capgemini.repositories.InvitationRepository#findByUser(com.capgemini.model.User)
 	 */
 	@Override
@@ -35,7 +40,9 @@ public class InvitationServiceImpl implements InvitationService   {
 	}
 
 	/**
-	 * @param id
+	 * Delete invitation by id
+	 * 
+	 * @param id invitation's id
 	 * @see org.springframework.data.repository.CrudRepository#deleteById(java.lang.Object)
 	 */
 	@Override
@@ -44,9 +51,11 @@ public class InvitationServiceImpl implements InvitationService   {
 	}
 
 	/**
-	 * @param <S>
-	 * @param entity
-	 * @return
+	 * Save an invitation
+	 * 
+	 * 
+	 * @param entity invitation
+	 * @return invitation added
 	 * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
 	 */
 	@Override

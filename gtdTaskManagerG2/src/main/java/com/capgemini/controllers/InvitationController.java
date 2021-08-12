@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.model.Invitation;
 import com.capgemini.model.User;
-import com.capgemini.services.implementation.InvitationServiceImpl;
+import com.capgemini.services.InvitationService;
 import com.capgemini.services.implementation.UserServiceImpl;
 
 @RestController
@@ -23,13 +23,15 @@ import com.capgemini.services.implementation.UserServiceImpl;
 public class InvitationController {
 
 	@Autowired
-	private InvitationServiceImpl invitationServiceImpl;
+	private InvitationService invitationServiceImpl;
 	
 	@Autowired
 	private UserServiceImpl userServiceImpl;
 
 	/**
-	 * @return
+	 * Find all invitations
+	 * 
+	 * @return list of invitations
 	 * @see com.capgemini.services.implementation.InvitationServiceImpl#findAll()
 	 */
 	@GetMapping("/")
@@ -38,8 +40,10 @@ public class InvitationController {
 	}
 	
 	/**
-	 * @return
-	 * @see com.capgemini.services.implementation.InvitationServiceImpl#findAll()
+	 * Find invitations by user id
+	 * 
+	 * @return list of invitations
+	 * @see com.capgemini.services.implementation.InvitationServiceImpl#findByUserId()
 	 */
 	@GetMapping("/{id}")
 	public List<Invitation> findByUserId(@PathVariable Long id) {
@@ -50,7 +54,9 @@ public class InvitationController {
 	}
 
 	/**
-	 * @param id
+	 * Delete invitation by id
+	 * 
+	 * @param id invitation's id
 	 * @see com.capgemini.services.implementation.InvitationServiceImpl#deleteById(java.lang.Long)
 	 */
 	@DeleteMapping("/{id}")
@@ -60,9 +66,10 @@ public class InvitationController {
 	}
 
 	/**
-	 * @param <S>
-	 * @param entity
-	 * @return
+	 * Save an invitation
+	 * 
+	 * @param entity invitation 
+	 * @return invitation added
 	 * @see com.capgemini.services.implementation.InvitationServiceImpl#save(com.capgemini.model.Invitation)
 	 */
 	@PostMapping("/")

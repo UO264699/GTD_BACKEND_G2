@@ -8,28 +8,36 @@ import com.capgemini.model.User;
 public interface InvitationService {
 
 	/**
-	 * @return
+	 * Find all invitations
+	 * 
+	 * @return list of invitations
 	 * @see org.springframework.data.jpa.repository.JpaRepository#findAll()
 	 */
 	List<Invitation> findAll();
 
 	/**
+	 * Find invitation by user
+	 * 
 	 * @param user
-	 * @return
+	 * @return list of invitations
 	 * @see com.capgemini.repositories.InvitationRepository#findByUser(com.capgemini.model.User)
 	 */
 	List<Invitation> findByUser(User user);
 
 	/**
-	 * @param id
+	 * Delete invitation by id
+	 * 
+	 * @param id invitation's id
 	 * @see org.springframework.data.repository.CrudRepository#deleteById(java.lang.Object)
 	 */
 	void deleteById(Long id);
 
 	/**
-	 * @param <S>
-	 * @param entity
-	 * @return
+	 * Save an invitation
+	 * 
+	 * 
+	 * @param entity invitation
+	 * @return invitation added
 	 * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
 	 */
 	<S extends Invitation> S save(S entity);
