@@ -4,19 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class TaskGroup {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
@@ -25,7 +19,10 @@ public class TaskGroup {
 	private String description;
 	@Column
 	private LocalDate creationDate;
-	
+
+	@ManyToOne
+	private User admin;
+
 	@OneToMany(mappedBy = "taskGroup",cascade = CascadeType.ALL)
 	private List<Task> tasks;
 	
@@ -91,5 +88,13 @@ public class TaskGroup {
 		
 		tasks.add(task);
 		task.setTaskGroup(this);
+	}
+
+	public User getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(User admin) {
+		this.admin = admin;
 	}
 }

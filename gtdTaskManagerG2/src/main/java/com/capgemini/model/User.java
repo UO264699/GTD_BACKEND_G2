@@ -52,6 +52,9 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Task> tasks;
+
+	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+	private List<TaskGroup> adminList;
 	
 	@ManyToMany
 	private List<TaskGroup> taskGroups;
@@ -104,6 +107,23 @@ public class User {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+
+	public List<TaskGroup> getAdminList() {
+		return adminList;
+	}
+
+	public void setAdminList(List<TaskGroup> adminList) {
+		this.adminList = adminList;
+	}
+
+	public List<TaskGroup> getTaskGroups() {
+		return taskGroups;
+	}
+
+	public void setTaskGroups(List<TaskGroup> taskGroups) {
+		this.taskGroups = taskGroups;
+	}
+
 	public void addCategory(Category category) {
 		if(categories == null) {
 			categories = new ArrayList<>();
