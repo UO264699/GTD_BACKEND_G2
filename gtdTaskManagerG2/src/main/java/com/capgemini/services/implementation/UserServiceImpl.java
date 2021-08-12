@@ -21,8 +21,12 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findAll();
 	}
 	@Override
-	public Optional<User> findById(Long id) {
-		return userRepository.findById(id);
+	public User findById(Long id) {
+		Optional<User> userOptional = userRepository.findById(id);
+		if(userOptional.isEmpty()) {
+			throw new IllegalArgumentException("No user found by this id: " + id);
+		}
+		return userOptional.get();
 	}
 
 	@Override

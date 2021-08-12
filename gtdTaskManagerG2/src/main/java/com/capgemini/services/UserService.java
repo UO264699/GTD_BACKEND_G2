@@ -16,7 +16,7 @@ public interface UserService {
 	 * @param id
 	 * @return optional of user searched by id
 	 */
-	Optional<User> findById(Long id);
+	User findById(Long id);
 
 	/**
 	 * @param users
