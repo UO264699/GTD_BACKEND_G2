@@ -15,7 +15,12 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Data
+@NoArgsConstructor
 public class Task {
 
 	@Id
@@ -56,99 +61,5 @@ public class Task {
 	
 	@ManyToOne
 	private TaskGroup taskGroup;
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public String getComments() {
-		return comments;
-	}
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-	public LocalDate getCreated() {
-		return created;
-	}
-	public void setCreated(LocalDate created) {
-		this.created = created;
-	}
-	public LocalDate getFinished() {
-		return finished;
-	}
-	public void setFinished(LocalDate finished) {
-		this.finished = finished;
-	}
-	public LocalDate getPlanned() {
-		return planned;
-	}
-	public void setPlanned(LocalDate planned) {
-		this.planned = planned;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getObservations() {
-		return observations;
-	}
-	public void setObservations(String observations) {
-		this.observations = observations;
-	}
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-	
-	public TaskGroup getTaskGroup() {
-		return taskGroup;
-	}
-	
-	public void setTaskGroup(TaskGroup taskGroup) {
-		this.taskGroup = taskGroup;
-	}
-	@Override
-	public String toString() {
-		return "Task [id=" + id + ", comments=" + comments + ", created=" + created + ", finished=" + finished
-				+ ", planned=" + planned + ", title=" + title + ", observations=" + observations + ", user=" + user
-				+ ", category=" + category + "]";
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(category, comments, created, finished, id, observations, planned, title, user);
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Task other = (Task) obj;
-		return Objects.equals(category, other.category) && Objects.equals(comments, other.comments)
-				&& Objects.equals(created, other.created) && Objects.equals(finished, other.finished)
-				&& Objects.equals(id, other.id) && Objects.equals(observations, other.observations)
-				&& Objects.equals(planned, other.planned) && Objects.equals(title, other.title)
-				&& Objects.equals(user, other.user);
-	}
 
 }
