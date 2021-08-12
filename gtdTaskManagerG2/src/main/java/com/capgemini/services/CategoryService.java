@@ -8,68 +8,55 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import com.capgemini.model.Category;
+import com.capgemini.model.User;
 
-@Service
 public interface CategoryService {
 
-	<S extends Category> S save(S entity);
-
-	<S extends Category> Optional<S> findOne(Example<S> example);
-
-	Page<Category> findAll(Pageable pageable);
-
+	/**
+	 * @return list of all categories
+	 */
 	List<Category> findAll();
 
-	List<Category> findAll(Sort sort);
-
-	List<Category> findAllById(Iterable<Long> ids);
-
+	/**
+	 * @param id
+	 * @return optional of category by id
+	 */
 	Optional<Category> findById(Long id);
 
-	<S extends Category> List<S> saveAll(Iterable<S> entities);
+	/**
+	 * @param category
+	 * @return category saved in DB
+	 */
+	Category save(Category category);
 
-	void flush();
-
-	<S extends Category> S saveAndFlush(S entity);
-
-	boolean existsById(Long id);
-
-	<S extends Category> List<S> saveAllAndFlush(Iterable<S> entities);
-
-	<S extends Category> Page<S> findAll(Example<S> example, Pageable pageable);
-
-	void deleteInBatch(Iterable<Category> entities);
-
-	<S extends Category> long count(Example<S> example);
-
-	<S extends Category> boolean exists(Example<S> example);
-
-	void deleteAllInBatch(Iterable<Category> entities);
-
-	long count();
-
+	/**
+	 * @param id
+	 * delete category by id
+	 */
 	void deleteById(Long id);
 
-	void deleteAllByIdInBatch(Iterable<Long> ids);
+	/**
+	 * @param category
+	 * delete category by category
+	 */
+	void delete(Category category);
 
-	void delete(Category entity);
-
-	void deleteAllById(Iterable<? extends Long> ids);
-
-	void deleteAllInBatch();
-
-	Category getOne(Long id);
-
-	void deleteAll(Iterable<? extends Category> entities);
-
+	/**
+	 * delete all categories
+	 */
 	void deleteAll();
+	
+	/**
+	 * @param user
+	 * @return list of categories by user
+	 */
+	List<Category> findByUser(User user);
 
-	Category getById(Long id);
-
-	<S extends Category> List<S> findAll(Example<S> example);
-
-	<S extends Category> List<S> findAll(Example<S> example, Sort sort);
-
+	
+	/**
+	 * @param user
+	 * @return optional of category searched by user id
+	 */
+	Optional<Category> findByUserId(Long user);
 }
