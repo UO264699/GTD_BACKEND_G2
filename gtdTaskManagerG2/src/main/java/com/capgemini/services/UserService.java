@@ -46,4 +46,6 @@ public interface UserService {
 	 * @return user searched by login
 	 */
 	User findByLogin(String login);
+	
+	
 }

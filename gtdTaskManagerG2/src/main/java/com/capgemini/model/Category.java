@@ -1,5 +1,6 @@
 package com.capgemini.model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -97,5 +98,6 @@ public class Category {
 		return Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(tasks, other.tasks)
 				&& Objects.equals(user, other.user);
 	}
+	
 
 }

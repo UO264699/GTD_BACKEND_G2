@@ -3,6 +3,11 @@ package com.capgemini.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import com.capgemini.model.Category;
 import com.capgemini.model.User;
 
@@ -54,5 +59,4 @@ public interface CategoryService {
 	 * @return optional of category searched by user id
 	 */
 	Optional<Category> findByUserId(Long user);
-
 }
