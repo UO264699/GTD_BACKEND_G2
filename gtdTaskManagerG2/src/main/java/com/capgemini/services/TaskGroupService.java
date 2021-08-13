@@ -26,7 +26,7 @@ public interface TaskGroupService {
 	 * @return
 	 * @see org.springframework.data.repository.CrudRepository#findById(java.lang.Object)
 	 */
-	Optional<TaskGroup> findById(Long id);
+	TaskGroup findById(Long id);
 
 	/**
 	 * @param entity

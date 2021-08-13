@@ -43,8 +43,12 @@ public class TaskGroupServiceImpl implements TaskGroupService {
 	 * @see org.springframework.data.repository.CrudRepository#findById(java.lang.Object)
 	 */
 	@Override
-	public Optional<TaskGroup> findById(Long id) {
-		return taskGroupRepository.findById(id);
+	public TaskGroup findById(Long id) {
+		Optional<TaskGroup> taskGroupOptional = taskGroupRepository.findById(id);
+		if(taskGroupOptional.isEmpty()) {
+			throw new IllegalArgumentException("No task group by this id: " + id);
+		}
+		return taskGroupOptional.get();
 	}
 
 	/**
