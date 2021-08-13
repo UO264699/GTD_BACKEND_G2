@@ -21,8 +21,21 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findAll();
 	}
 	@Override
-	public Optional<User> findById(Long id) {
-		return userRepository.findById(id);
+	public User findById(Long id) {
+		Optional<User> userOptional = userRepository.findById(id);
+		if(userOptional.isEmpty()) {
+			throw new IllegalArgumentException("No user found by this id: " + id);
+		}
+		return userOptional.get();
+	}
+	
+	@Override
+	public User findByLogin(String login) {
+		Optional<User> userOptional = userRepository.findByLogin(login);
+		if(userOptional.isEmpty()) {
+			throw new IllegalArgumentException("No user found by this login: " + login);
+		}
+		return userOptional.get();
 	}
 
 	@Override
@@ -43,10 +56,5 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteAll() {
 		userRepository.deleteAll();
-	}
-
-	@Override
-	public User findByLogin(String login) {
-		return userRepository.findByLogin(login);
 	}
 }

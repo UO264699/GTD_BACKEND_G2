@@ -2,7 +2,6 @@ package com.capgemini.services;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import com.capgemini.model.Category;
 import com.capgemini.model.Task;
@@ -18,16 +17,16 @@ public interface TaskService {
 
 	/**
 	 * @param id
-	 * @return optional of task searched by id
+	 * @return task searched by id
 	 */
-	Optional<Task> findById(Long id);
+	Task findById(Long id);
 	
 	/**
 	 * @param taskId
 	 * @param taskGroupId
-	 * @return optional of task searched by Task id and TaskGroup Id
+	 * @return task searched by Task id and TaskGroup Id
 	 */
-	Optional<Task> findByIdAndTaskGroupId(Long taskId, Long taskGroupId);
+	Task findByIdAndTaskGroupId(Long taskId, Long taskGroupId);
 	
 	/**
 	 * @param user
@@ -103,5 +102,11 @@ public interface TaskService {
 	 * delete all tasks
 	 */
 	void deleteAll();
+	
+	
+	/**
+	 * @param task
+	 */
+	public void finishedTask(Task task);
 
 }

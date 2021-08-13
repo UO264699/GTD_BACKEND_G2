@@ -1,7 +1,6 @@
 package com.capgemini.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -20,9 +19,15 @@ public interface CategoryService {
 
 	/**
 	 * @param id
-	 * @return optional of category by id
+	 * @return category by id
 	 */
-	Optional<Category> findById(Long id);
+	Category findById(Long id);
+	
+	/**
+	 * @param user
+	 * @return category searched by user id
+	 */
+	Category findByUserId(Long user);
 
 	/**
 	 * @param category
@@ -53,10 +58,4 @@ public interface CategoryService {
 	 */
 	List<Category> findByUser(User user);
 
-	
-	/**
-	 * @param user
-	 * @return optional of category searched by user id
-	 */
-	Optional<Category> findByUserId(Long user);
 }

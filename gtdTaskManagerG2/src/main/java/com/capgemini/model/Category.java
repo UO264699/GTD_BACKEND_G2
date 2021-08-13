@@ -3,7 +3,6 @@ package com.capgemini.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,7 +16,13 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cascade;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
 @Entity
+@Data
+@NoArgsConstructor
 public class Category {
 	
 	@Id
@@ -36,38 +41,6 @@ public class Category {
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	private List<Task> tasks;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public List<Task> getTasks() {
-		return tasks;
-	}
-
-	public void setTasks(List<Task> tasks) {
-		this.tasks = tasks;
-	}
-
 	public void addTask(Task task) {
 		if(tasks == null) {
 			tasks = new ArrayList<>();
@@ -75,29 +48,5 @@ public class Category {
 		tasks.add(task);
 		task.setCategory(this);
 	}
-
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", user=" + user + ", tasks=" + tasks + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, tasks, user);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Category other = (Category) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(tasks, other.tasks)
-				&& Objects.equals(user, other.user);
-	}
-	
 
 }

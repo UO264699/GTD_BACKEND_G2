@@ -23,11 +23,11 @@ import com.capgemini.services.CategoryService;
 public class CategoryController {
 
 	@Autowired
-	CategoryService cs;
+	private CategoryService categoryService;
 	
 	@GetMapping(path="/all")
 	public ResponseEntity<?> findAll(){
-		List<Category> lista=cs.findAll();
+		List<Category> lista=categoryService.findAll();
 		if(lista.isEmpty())
 			return ResponseEntity.notFound().build();
 		else return ResponseEntity.ok(lista);
@@ -35,33 +35,29 @@ public class CategoryController {
 	
 	@GetMapping(path="/{id}")
 	public ResponseEntity<?> findById(@PathVariable Long id){
-		Optional<Category> cg=cs.findById(id);
-		if(cg.isPresent())
-			return ResponseEntity.ok(cg.get());
-		else return ResponseEntity.notFound().build();
+		Category category=categoryService.findById(id);
+		return ResponseEntity.ok(category);
+
 	}
 	
 	@PostMapping(path="/add")
 	public ResponseEntity<?> insertar(@RequestBody Category category){
-		cs.save(category);
+		categoryService.save(category);
 		return ResponseEntity.status(HttpStatus.CREATED).body(category);
 	}
 	
 	@PutMapping(path="/modify/{id}")
 	public ResponseEntity<?> modificar(@PathVariable Long id, @RequestBody Category category){
-		if(cs.findById(id).isPresent()) {
-			category.setId(id);
-			return ResponseEntity.ok(cs.save(category));
-		}else return ResponseEntity.notFound().build();
+		Category categoryTemp = categoryService.findById(id);
+		category.setId(categoryTemp.getId());
+		return ResponseEntity.ok(categoryService.save(category));
 	}
 	
 	@DeleteMapping(path="/delte/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id){
-		if(cs.findById(id).isPresent()) {
-			Category c=cs.findById(id).get();
-			cs.delete(c);
-			return ResponseEntity.ok(c);
-		}else return ResponseEntity.notFound().build();
+		Category category = categoryService.findById(id);
+		categoryService.delete(category);
+		return ResponseEntity.ok(category);
 	}
 	
 

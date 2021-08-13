@@ -1,7 +1,6 @@
 package com.capgemini.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.capgemini.model.User;
 
@@ -14,9 +13,15 @@ public interface UserService {
 
 	/**
 	 * @param id
-	 * @return optional of user searched by id
+	 * @return user searched by id
 	 */
-	Optional<User> findById(Long id);
+	User findById(Long id);
+	
+	/**
+	 * @param login
+	 * @return user searched by login
+	 */
+	User findByLogin(String login);
 
 	/**
 	 * @param users
@@ -41,11 +46,4 @@ public interface UserService {
 	 */
 	void deleteAll();
 
-	/**
-	 * @param login
-	 * @return user searched by login
-	 */
-	User findByLogin(String login);
-	
-	
 }
