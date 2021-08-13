@@ -67,4 +67,9 @@ public class UserController {
 	public @ResponseBody User getUserByLogin(@PathVariable String login) {
 		return userService.findByLogin(login);
 	}
+	
+	@GetMapping(path = "/login")
+	public @ResponseBody String login() {
+		return "login";
+	}
 }
