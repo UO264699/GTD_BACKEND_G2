@@ -103,5 +103,11 @@ public interface TaskService {
 	 * delete all tasks
 	 */
 	void deleteAll();
+	
+	
+	/**
+	 * @param task
+	 */
+	public void finishedTask(Task task);
 
 }

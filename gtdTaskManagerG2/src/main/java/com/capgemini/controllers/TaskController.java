@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.model.Category;
 import com.capgemini.model.Task;
 import com.capgemini.model.User;
-import com.capgemini.services.implementation.TaskServiceImpl;
+import com.capgemini.services.TaskService;
 
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
 
 	@Autowired
-	private TaskServiceImpl taskService;
+	private TaskService taskService;
 
 	@PostMapping("/")
 	public Task addTask(Task task) {
@@ -85,7 +85,7 @@ public class TaskController {
 	@PutMapping("/{id}")
 	public Task finishedTask(@PathVariable Long id) {
 		
-		Task task = taskService.findById(id).get();
+		Task task = taskService.findById(id);
 		
 		taskService.finishedTask(task);
 		
