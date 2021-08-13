@@ -18,14 +18,14 @@ public interface TaskService {
 
 	/**
 	 * @param id
-	 * @return optional of task searched by id
+	 * @return task searched by id
 	 */
 	Task findById(Long id);
 	
 	/**
 	 * @param taskId
 	 * @param taskGroupId
-	 * @return optional of task searched by Task id and TaskGroup Id
+	 * @return task searched by Task id and TaskGroup Id
 	 */
 	Task findByIdAndTaskGroupId(Long taskId, Long taskGroupId);
 	

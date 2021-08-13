@@ -14,9 +14,15 @@ public interface UserService {
 
 	/**
 	 * @param id
-	 * @return optional of user searched by id
+	 * @return user searched by id
 	 */
 	User findById(Long id);
+	
+	/**
+	 * @param login
+	 * @return user searched by login
+	 */
+	User findByLogin(String login);
 
 	/**
 	 * @param users
@@ -40,10 +46,4 @@ public interface UserService {
 	 * delete all users
 	 */
 	void deleteAll();
-
-	/**
-	 * @param login
-	 * @return user searched by login
-	 */
-	User findByLogin(String login);
 }

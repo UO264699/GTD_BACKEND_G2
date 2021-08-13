@@ -23,8 +23,21 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Optional<Category> findById(Long id) {
-		return categoryRepository.findById(id);
+	public Category findById(Long id) {
+		Optional<Category> categoryOptional = categoryRepository.findById(id);
+		if(categoryOptional.isEmpty()) {
+			throw new IllegalArgumentException("No category found by this id: " + id);
+		}
+		return categoryOptional.get();
+	}
+	
+	@Override
+	public Category findByUserId(Long user) {
+		Optional<Category> categoryOptional = categoryRepository.findByUserId(user);
+		if(categoryOptional.isEmpty()) {
+			throw new IllegalArgumentException("No category found by this user: " + user);
+		}
+		return categoryOptional.get();
 	}
 
 	@Override
@@ -50,12 +63,6 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> findByUser(User user) {
 		return categoryRepository.findByUser(user);
-	}
-
-	@Override
-	public Optional<Category> findByUserId(Long user) {
-		// TODO Auto-generated method stub
-		return categoryRepository.findByUserId(user);
 	}
 
 }
