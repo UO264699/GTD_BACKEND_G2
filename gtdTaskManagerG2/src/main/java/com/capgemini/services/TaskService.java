@@ -20,14 +20,14 @@ public interface TaskService {
 	 * @param id
 	 * @return optional of task searched by id
 	 */
-	Optional<Task> findById(Long id);
+	Task findById(Long id);
 	
 	/**
 	 * @param taskId
 	 * @param taskGroupId
 	 * @return optional of task searched by Task id and TaskGroup Id
 	 */
-	Optional<Task> findByIdAndTaskGroupId(Long taskId, Long taskGroupId);
+	Task findByIdAndTaskGroupId(Long taskId, Long taskGroupId);
 	
 	/**
 	 * @param user

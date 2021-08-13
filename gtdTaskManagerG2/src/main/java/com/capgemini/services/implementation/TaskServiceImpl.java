@@ -27,13 +27,22 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public Optional<Task> findById(Long id) {
-		return taskRepository.findById(id);
+	public Task findById(Long id) {
+		Optional<Task> taskOptional = taskRepository.findById(id);
+		if(taskOptional.isEmpty()) {
+			throw new IllegalArgumentException("No task found by this id: " + id);
+		}
+		return taskOptional.get();
 	}
 	
 	@Override
-	public Optional<Task> findByIdAndTaskGroupId(Long taskId, Long taskGroupId) {
-		return taskRepository.findByIdAndTaskGroupId(taskId, taskGroupId);
+	public Task findByIdAndTaskGroupId(Long taskId, Long taskGroupId) {
+		Optional<Task> taskOptional = taskRepository.findByIdAndTaskGroupId(taskId, taskGroupId);
+		if(taskOptional.isEmpty()) {
+			throw new IllegalArgumentException("No user found by this task group id: " + taskGroupId + 
+					" and this task id: " + taskId);
+		}
+		return taskOptional.get();
 	}
 	
 	@Override
