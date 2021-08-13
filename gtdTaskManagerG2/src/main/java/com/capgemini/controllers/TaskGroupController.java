@@ -117,7 +117,7 @@ public class TaskGroupController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id}/tasks/{taskId}")
+	@PutMapping("/{id}/finishTasks/{taskId}")
 	public ResponseEntity<?> finishTask(@PathVariable("id") Long id,
 										@PathVariable("taskId") Long taskId) {
 		Task task = taskService.findByIdAndTaskGroupId(id, taskId);
