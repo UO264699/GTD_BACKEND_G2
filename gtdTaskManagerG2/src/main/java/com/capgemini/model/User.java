@@ -44,18 +44,26 @@ public class User {
 	@Transient
 	private String password2;
 
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Category> categories;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Task> tasks;
 
+
 	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
 	private List<TaskGroup> adminList;
-	
+
+
 	@ManyToMany
 	private List<TaskGroup> taskGroups;
 
+	
+	@OneToMany(mappedBy = "user")
+	private List<Invitation> invitations;
+	
+	
 	public void addCategory(Category category) {
 		if(categories == null) {
 			categories = new ArrayList<>();

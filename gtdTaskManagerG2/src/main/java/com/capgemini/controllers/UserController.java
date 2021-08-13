@@ -13,12 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.model.User;
 import com.capgemini.services.UserService;
 
+import com.capgemini.services.security.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	
+	@Autowired
+	private SecurityService securityService;
 
 	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
@@ -31,10 +42,13 @@ public class UserController {
 	}
 
 	@PostMapping(path = "/add")
-	public @ResponseBody String addNewUser(@RequestBody User user) {
+	public @ResponseBody User addNewUser(@RequestBody User user) {
+		
 		userService.save(user);
-
-		return "Usuario creado con exito";
+		
+		securityService.autoLogin(user.getLogin(), user.getPassword2());
+	
+		return user;
 	}
 
 	@DeleteMapping(path = "/delete/{id}")
@@ -63,6 +77,7 @@ public class UserController {
 		return userService.findByLogin(login);
 	}
 	
+
 	
 //	//Pablo
 //	@PutMapping("/{id}")
@@ -79,4 +94,10 @@ public class UserController {
 //		return new ResponseEntity<>(HttpStatus.OK);
 //	}
 	
+
+	@GetMapping(path = "/login")
+	public @ResponseBody String login() {
+		return "login";
+	}
+
 }
