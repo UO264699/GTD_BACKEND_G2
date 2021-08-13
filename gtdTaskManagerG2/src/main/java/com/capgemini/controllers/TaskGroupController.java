@@ -49,7 +49,7 @@ public class TaskGroupController {
 
     @GetMapping(path= "/{id}")
     public @ResponseBody
-    Optional<TaskGroup> getTaskGroupById(@PathVariable Long id) {
+    TaskGroup getTaskGroupById(@PathVariable Long id) {
         return taskGroupService.findById(id);
     }
 
@@ -98,52 +98,42 @@ public class TaskGroupController {
 	
 	@PostMapping("/{id}/tasks")
 	public ResponseEntity<?> saveTask(@RequestBody Task task, @PathVariable("id") Long id) {
-		Optional<TaskGroup> taskGroupOptional = taskGroupService.findById(id);
-		if(taskGroupOptional.isPresent()) {
-			TaskGroup taskGroup = taskGroupOptional.get();
-			taskGroup.addTask(task);
-			return new ResponseEntity<>(taskGroupService.save(taskGroup), HttpStatus.OK);
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		TaskGroup taskGroup = taskGroupService.findById(id);
+		return new ResponseEntity<>(taskGroupService.save(taskGroup), HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id}/tasks{taskId}")
+	@PutMapping("/{id}/tasks/{taskId}")
 	public ResponseEntity<?> updateTask(@RequestBody Task task,
 										@PathVariable("id") Long id,
 										@PathVariable("taskId") Long taskId) {
-		Optional<Task> taskOptional = taskService.findByIdAndTaskGroupId(id, taskId);
-		if(taskOptional.isPresent()) {
-			Task taskTemp = taskOptional.get();
-			task.setId(taskTemp.getId());
-			return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		Task taskTemp = taskService.findByIdAndTaskGroupId(id, taskId);
+		task.setId(taskTemp.getId());
+		return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
+
 	}
 	
-	@DeleteMapping("/{id}/tasks{taskId}")
+	@DeleteMapping("/{id}/tasks/{taskId}")
 	public ResponseEntity<?> deteleTask(@PathVariable("id") Long id,
 										@PathVariable("taskId") Long taskId) {
-		taskService.deleteById(taskId);
+		Task task = taskService.findByIdAndTaskGroupId(id, taskId);
+		taskService.delete(task);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id}/tasks{taskId}")
+	@PutMapping("/{id}/tasks/{taskId}")
 	public ResponseEntity<?> finishTask(@PathVariable("id") Long id,
 										@PathVariable("taskId") Long taskId) {
-		Optional<Task> taskOptional = taskService.findByIdAndTaskGroupId(id, taskId);
-		if(taskOptional.isPresent()) {
-			Task task = taskOptional.get();
-			task.setFinished(LocalDate.now());
-			return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		Task task = taskService.findByIdAndTaskGroupId(id, taskId);
+		task.setFinished(LocalDate.now());
+		return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
+
 	}
 
 	@PutMapping("/updateStatus/{id}/{idUser}")
 	public String updateStatus(@PathVariable Long id, @PathVariable Long idUser) {
-    	TaskGroup taskGroup = taskGroupService.findById(id).get();
+    	TaskGroup taskGroup = taskGroupService.findById(id);
 
-    	User user = userService.findById(idUser).get();
+    	User user = userService.findById(idUser);
     	
     	taskGroup.setAdmin(user);
 
