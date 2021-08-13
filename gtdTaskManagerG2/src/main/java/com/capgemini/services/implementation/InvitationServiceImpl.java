@@ -1,12 +1,16 @@
 package com.capgemini.services.implementation;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.model.Invitation;
+import com.capgemini.model.TaskGroup;
 import com.capgemini.model.User;
 import com.capgemini.repositories.InvitationRepository;
+import com.capgemini.repositories.TaskGroupRepository;
 import com.capgemini.services.InvitationService;
 
 
@@ -15,6 +19,9 @@ public class InvitationServiceImpl implements InvitationService   {
 
 	@Autowired
 	private InvitationRepository invitationRepository;
+	
+	@Autowired
+	private TaskGroupRepository taskGroupRepository;
 
 	/**
 	 * Find all invitations
@@ -64,6 +71,30 @@ public class InvitationServiceImpl implements InvitationService   {
 	}
 
 	
+	/**
+	 *
+	 */
+	@Override
+	public TaskGroup update(TaskGroup taskGroup,User user) {
+		
+		taskGroup.getUsers().add(user);
+		user.getTaskGroups().add(taskGroup); 
+		
+		return taskGroupRepository.save(taskGroup);
+	}
+
+	/**
+	 * 
+	 * Find invitation by id
+	 * 
+	 * @param id invitation's id
+	 * @return invitation
+	 * @see org.springframework.data.repository.CrudRepository#findById(java.lang.Object)
+	 */
+	@Override
+	public Optional<Invitation> findById(Long id) {
+		return invitationRepository.findById(id);
+	}
 	
 
 }

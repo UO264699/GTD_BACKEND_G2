@@ -24,6 +24,7 @@ public class TaskGroup {
 	private String description;
 	@Column
 	private LocalDate creationDate;
+
 	
 	@OneToMany(mappedBy = "taskGroup",cascade = CascadeType.ALL)
 	private List<Task> tasks;

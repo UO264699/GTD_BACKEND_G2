@@ -1,5 +1,6 @@
 package com.capgemini.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,13 +10,19 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.model.Invitation;
+import com.capgemini.model.TaskGroup;
 import com.capgemini.model.User;
 import com.capgemini.services.InvitationService;
+import com.capgemini.services.TaskGroupService;
+import com.capgemini.services.UserService;
+import com.capgemini.services.implementation.InvitationServiceImpl;
+import com.capgemini.services.implementation.TaskGroupServiceImpl;
 import com.capgemini.services.implementation.UserServiceImpl;
 
 @RestController
@@ -26,7 +33,10 @@ public class InvitationController {
 	private InvitationService invitationServiceImpl;
 	
 	@Autowired
-	private UserServiceImpl userServiceImpl;
+	private UserService userServiceImpl;
+	
+	@Autowired
+	private TaskGroupService taskGroupService;
 
 	/**
 	 * Find all invitations
@@ -48,9 +58,18 @@ public class InvitationController {
 	@GetMapping("/{id}")
 	public List<Invitation> findByUserId(@PathVariable Long id) {
 		
-		User user = userServiceImpl.findById(id).get();
 		
-		return invitationServiceImpl.findByUser(user);
+		if(userServiceImpl.findById(id).isPresent()) {
+			
+			User user = userServiceImpl.findById(id).get();
+			return invitationServiceImpl.findByUser(user);
+		}
+		else {
+			
+			return new ArrayList<>();
+		}
+		
+		
 	}
 
 	/**
@@ -78,6 +97,27 @@ public class InvitationController {
 	}
 	
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param id
+	 * @param userid
+	 * @return
+	 */
+	@PutMapping("/{id}/group{groupid}/user{userid}")
+	public TaskGroup acceptInvitation(@PathVariable Long id,@PathVariable Long groupid, @PathVariable Long userid) {
+		
+		User user = userServiceImpl.findById(userid).get();
+		TaskGroup taskGroup = taskGroupService.findById(groupid).get();
+		
+	    invitationServiceImpl.deleteById(id);
+		
+		
+		return invitationServiceImpl.update(taskGroup,user);
+		
+		
+	}
 	
 	
 

@@ -2,7 +2,10 @@ package com.capgemini.controllers;
 
 import com.capgemini.model.User;
 import com.capgemini.services.UserService;
+import com.capgemini.services.security.SecurityService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	
+	@Autowired
+	private SecurityService securityService;
 
 	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
@@ -26,10 +33,13 @@ public class UserController {
 	}
 
 	@PostMapping(path = "/add")
-	public @ResponseBody String addNewUser(@RequestBody User user) {
+	public @ResponseBody User addNewUser(@RequestBody User user) {
+		
 		userService.save(user);
-
-		return "Usuario creado con exito";
+		
+		securityService.autoLogin(user.getLogin(), user.getPassword2());
+	
+		return user;
 	}
 
 	@DeleteMapping(path = "/delete/{id}")

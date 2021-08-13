@@ -1,8 +1,10 @@
 package com.capgemini.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.capgemini.model.Invitation;
+import com.capgemini.model.TaskGroup;
 import com.capgemini.model.User;
 
 public interface InvitationService {
@@ -41,5 +43,17 @@ public interface InvitationService {
 	 * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
 	 */
 	<S extends Invitation> S save(S entity);
+
+	TaskGroup update(TaskGroup taskGroup, User user);
+
+	/**
+	 * 
+	 * Find invitation by id
+	 * 
+	 * @param id invitation's id
+	 * @return invitation
+	 * @see org.springframework.data.repository.CrudRepository#findById(java.lang.Object)
+	 */
+	Optional<Invitation> findById(Long id);
 
 }

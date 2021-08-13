@@ -55,6 +55,19 @@ public class User {
 	private List<Task> tasks;
 
 	
+	/**
+	 * @return the taskGroups
+	 */
+	public List<TaskGroup> getTaskGroups() {
+		return taskGroups;
+	}
+	/**
+	 * @param taskGroups the taskGroups to set
+	 */
+	public void setTaskGroups(List<TaskGroup> taskGroups) {
+		this.taskGroups = taskGroups;
+	}
+
 	@ManyToMany
 	private List<TaskGroup> taskGroups;
 	
