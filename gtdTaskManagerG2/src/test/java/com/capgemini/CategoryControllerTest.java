@@ -1,30 +1,33 @@
 package com.capgemini;
 
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.capgemini.controllers.CategoryController;
 import com.capgemini.model.Category;
-import com.capgemini.repositories.CategoryRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.capgemini.model.User;
+import com.capgemini.services.CategoryService;
+import com.capgemini.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(CategoryController.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class CategoryControllerTest {
 	
 	@Autowired
@@ -33,8 +36,12 @@ class CategoryControllerTest {
 	@Autowired
 	ObjectMapper mapper;
 	
+	@Autowired
+	UserService us;
+	
+	
 	@MockBean
-	CategoryRepository cr;
+	CategoryService cs;
 	
 	Category c1= new Category();
 	Category c2= new Category();
@@ -44,16 +51,33 @@ class CategoryControllerTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+	
 	}
 
 	@Test
 	void testFindAll() throws Exception {
 		List<Category> lista=new ArrayList<>();
+		
+		c1.setId(1L);
+		c1.setName("Categoria1");
+		c1.setTasks(new ArrayList<>());
+		c1.setUser(new User());
+		
+		c2.setId(2L);
+		c2.setName("Categoria2");
+		c2.setTasks(new ArrayList<>());
+		c2.setUser(new User());
+		
+		c3.setId(3L);
+		c3.setName("Categoria3");
+		c3.setTasks(new ArrayList<>());
+		c3.setUser(new User());
+		
 		lista.add(c1);
 		lista.add(c2);
 		lista.add(c3);
 		
-		Mockito.when(cr.findAll()).thenReturn(lista);
+		Mockito.when(cs.findAll()).thenReturn(lista);
 		
 		mockmvc.perform(MockMvcRequestBuilders.get("/categories/all").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
@@ -64,7 +88,7 @@ class CategoryControllerTest {
 	@Test
 	void testFindById() throws Exception {
 		c1.setId(1L);
-		Mockito.when(cr.findById(c1.getId())).thenReturn(java.util.Optional.of(c1));
+		Mockito.when(cs.findById(c1.getId())).thenReturn(c1);
 		
 		mockmvc.perform(MockMvcRequestBuilders.get("/categories/1").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
@@ -79,7 +103,7 @@ class CategoryControllerTest {
 		category.setTasks(null);
 		category.setUser(null);
 		
-		Mockito.when(cr.save(category)).thenReturn(category);
+		Mockito.when(cs.save(category)).thenReturn(category);
 		
 		MockHttpServletRequestBuilder mockRequest=MockMvcRequestBuilders.post("/categories/add").contentType(MediaType.APPLICATION_JSON)
 													.accept(MediaType.APPLICATION_JSON)
@@ -98,8 +122,8 @@ class CategoryControllerTest {
 		c2.setTasks(null);
 		c2.setUser(null);
 		
-		Mockito.when(cr.findById(c2.getId())).thenReturn(Optional.of(c2));
-		Mockito.when(cr.save(categoryAct)).thenReturn(categoryAct);
+		Mockito.when(cs.findById(c2.getId())).thenReturn(c2);
+		Mockito.when(cs.save(categoryAct)).thenReturn(categoryAct);
 		
 		MockHttpServletRequestBuilder mockRequest=MockMvcRequestBuilders.post("/categories/modify/5")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -118,7 +142,7 @@ class CategoryControllerTest {
 		category.setTasks(null);
 		category.setUser(null);
 		
-		Mockito.when(cr.findById(category.getId())).thenReturn(Optional.of(category));
+		Mockito.when(cs.findById(category.getId())).thenReturn(category);
 		
 		mockmvc.perform(MockMvcRequestBuilders.delete("/categories/delte/7")
 				.contentType(MediaType.APPLICATION_JSON))
