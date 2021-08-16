@@ -1,5 +1,6 @@
 package com.capgemini;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -56,6 +59,9 @@ class CategoryControllerTest {
 
 	@Test
 	void testFindAll() throws Exception {
+
+		String expected = "[{\"id\":1,\"name\":Categoria1\",\"user\":{}]]";
+
 		List<Category> lista=new ArrayList<>();
 		
 		c1.setId(1L);
@@ -63,24 +69,31 @@ class CategoryControllerTest {
 		c1.setTasks(new ArrayList<>());
 		c1.setUser(new User());
 		
-		c2.setId(2L);
-		c2.setName("Categoria2");
-		c2.setTasks(new ArrayList<>());
-		c2.setUser(new User());
+		//c2.setId(2L);
+		//c2.setName("Categoria2");
+		//c2.setTasks(new ArrayList<>());
+		//c2.setUser(new User());
 		
-		c3.setId(3L);
-		c3.setName("Categoria3");
-		c3.setTasks(new ArrayList<>());
-		c3.setUser(new User());
+		//c3.setId(3L);
+		//c3.setName("Categoria3");
+		//c3.setTasks(new ArrayList<>());
+		//c3.setUser(new User());
 		
 		lista.add(c1);
-		lista.add(c2);
-		lista.add(c3);
+		//lista.add(c2);
+		//lista.add(c3);
 		
 		Mockito.when(cs.findAll()).thenReturn(lista);
-		
-		mockmvc.perform(MockMvcRequestBuilders.get("/categories/all").contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/categories/all").accept(MediaType.APPLICATION_JSON);
+		MvcResult result = mockmvc.perform(requestBuilder).andReturn();
+		assertEquals(expected, result.getResponse().getContentAsString());
+
+
+
+
+		//mockmvc.perform(MockMvcRequestBuilders.get("/categories/all").contentType(MediaType.APPLICATION_JSON))
+				//.andExpect(status().isOk());
 		
 		
 	}
