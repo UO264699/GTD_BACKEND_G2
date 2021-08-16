@@ -3,7 +3,6 @@ package com.capgemini.controllers;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +18,7 @@ import com.capgemini.model.Category;
 import com.capgemini.model.Task;
 import com.capgemini.model.User;
 import com.capgemini.services.TaskService;
+import com.capgemini.services.UserService;
 
 @RestController
 @RequestMapping("/tasks")
@@ -26,6 +26,9 @@ public class TaskController {
 
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private UserService userService;
 
 	@PostMapping("/")
 	public Task addTask(Task task) {
@@ -52,19 +55,19 @@ public class TaskController {
 		
 	}
 	
-	@GetMapping("/inbox")
-	public List<Task> getInboxTasks(HttpSession httpSession) {
+	@GetMapping("/inbox/{id}")
+	public List<Task> getInboxTasks(@PathVariable Long id) {
 		
-		User user = (User) httpSession.getAttribute("user");
+		User user = userService.findById(id);
 		
 		return taskService.findByUserInboxTasks(user);
 	
 	}
 	
-	@GetMapping("/today")
-	public List<Task> getTodayTasks(HttpSession httpSession) {
+	@GetMapping("/today/{id}")
+	public List<Task> getTodayTasks(@PathVariable Long id) {
 		
-		User user = (User) httpSession.getAttribute("user");
+		User user = userService.findById(id);
 		
 		return taskService.findByUserTodayTasks(user, new Date());
 	
